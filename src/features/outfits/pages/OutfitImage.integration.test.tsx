@@ -38,8 +38,10 @@ describe('Tenue en image', () => {
       roundRect: vi.fn(),
       clip: vi.fn(),
       fillRect: vi.fn(),
+      fill: vi.fn(),
       fillText: vi.fn(),
       drawImage: vi.fn(),
+      measureText: vi.fn((text: string) => ({ width: text.length * 10 })),
     };
     vi.spyOn(HTMLCanvasElement.prototype, 'getContext').mockReturnValue(
       context as unknown as CanvasRenderingContext2D,
