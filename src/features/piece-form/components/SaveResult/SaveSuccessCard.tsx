@@ -1,7 +1,7 @@
 import { useRevealOnMount } from '../../../../shared/hooks/useRevealOnMount';
 import { ROUTES } from '../../../../shared/routes';
 import type { Piece } from '../../../../shared/pieces/types/piece';
-import { formatBrand, formatPrice } from '../../../../shared/utils/format';
+import { formatBrand, formatPieceName, formatPrice } from '../../../../shared/utils/format';
 import { ButtonLink } from '../../../../shared/ui/Button/ButtonLink';
 import { ButtonVariant } from '../../../../shared/ui/Button/Button';
 import styles from './SaveSuccessCard.module.css';
@@ -24,7 +24,7 @@ export function SaveSuccessCard({ title, piece }: SaveSuccessCardProps) {
       <div className={styles.text}>
         <p className={styles.title}>{title}</p>
         <p className={styles.piece}>
-          {piece.title} · {formatBrand(piece.brand)} · {formatPrice(piece.price)}
+          {formatPieceName(piece.title)} · {formatBrand(piece.brand)} · {formatPrice(piece.price)}
         </p>
       </div>
       <ButtonLink to={ROUTES.wardrobe} variant={ButtonVariant.Ghost}>

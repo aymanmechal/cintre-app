@@ -5,12 +5,13 @@ import { Button, ButtonVariant } from '../../../../shared/ui/Button/Button';
 import { ConfirmDialog } from '../../../../shared/ui/ConfirmDialog/ConfirmDialog';
 import { formatOutfitCount } from '../../../outfits/utils/outfits';
 import { TRASH_RETENTION_DAYS } from '../../../wardrobe/constants/wardrobe';
+import { formatPieceName } from '../../../../shared/utils/format';
 import styles from './DeletePieceSection.module.css';
 
 const DELETE_ERROR_MESSAGE = 'Impossible de supprimer la pièce. Réessaie dans un instant.';
 
 function buildDeleteMessage(piece: Piece, outfitCount: number): string {
-  const message = `« ${piece.title} » ira dans la corbeille. Tu pourras la restaurer pendant ${TRASH_RETENTION_DAYS} jours.`;
+  const message = `« ${formatPieceName(piece.title)} » ira dans la corbeille. Tu pourras la restaurer pendant ${TRASH_RETENTION_DAYS} jours.`;
   if (outfitCount === 0) return message;
   return `${message} Attention : elle est dans ${formatOutfitCount(outfitCount)}.`;
 }

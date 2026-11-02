@@ -111,6 +111,6 @@ describe('buildWrappedHighlights', () => {
   it('prépare les cartes à afficher', () => {
     const wrapped = buildWrapped(ITEMS, OUTFITS, ENTRIES, WrappedPeriod.Month, TODAY);
     const values = buildWrappedHighlights(wrapped).map((highlight) => highlight.value);
-    expect(values).toEqual(['2', '—', 'Pull', 'Cosy', 'Rouge', '1', '1']);
+    expect(values).toEqual(['2', '—', 'PULL', 'Cosy', 'Rouge', '1', '1']);
   });
 });

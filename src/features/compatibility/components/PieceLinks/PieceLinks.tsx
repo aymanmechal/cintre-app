@@ -5,7 +5,7 @@ import { OutfitPieceThumbnail } from '../../../outfits/components/OutfitCard/Out
 import { buildOutfitIdeasUrl } from '../../../../shared/routes';
 import { ButtonLink } from '../../../../shared/ui/Button/ButtonLink';
 import { SelectField } from '../../../../shared/ui/Form/SelectField';
-import { formatPieceCount } from '../../../../shared/utils/format';
+import { formatPieceCount, formatPieceName } from '../../../../shared/utils/format';
 import styles from './PieceLinks.module.css';
 
 interface PieceLinksProps {
@@ -18,7 +18,7 @@ export function PieceLinks({ nodes, chosenNode, onChoose }: PieceLinksProps) {
   const { piece } = chosenNode.item;
   const options = nodes.map((node) => ({
     value: String(node.item.piece.id),
-    label: node.item.piece.title,
+    label: formatPieceName(node.item.piece.title),
   }));
 
   return (
@@ -34,7 +34,7 @@ export function PieceLinks({ nodes, chosenNode, onChoose }: PieceLinksProps) {
         onChange={(value) => onChoose(Number(value))}
       />
       <p className={styles.summary} aria-live="polite">
-        {piece.title} va avec {formatPieceCount(chosenNode.partners.length)} :{' '}
+        {formatPieceName(piece.title)} va avec {formatPieceCount(chosenNode.partners.length)} :{' '}
         {formatPossibleOutfits(chosenNode.outfitCount).toLowerCase()}.
       </p>
       {groupPartnersBySlot(chosenNode).map((group) => (

@@ -10,6 +10,10 @@ export function formatBrand(brand: string | null): string {
   return brand ?? UNKNOWN_BRAND_LABEL;
 }
 
+export function formatPieceName(title: string): string {
+  return title.toLocaleUpperCase('fr-FR');
+}
+
 export function formatPieceCount(count: number): string {
   return count > 1 ? `${count} pièces` : `${count} pièce`;
 }

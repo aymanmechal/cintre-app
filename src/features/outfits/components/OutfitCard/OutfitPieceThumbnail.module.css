@@ -22,4 +22,5 @@
   font-size: 0.75rem;
   white-space: nowrap;
   text-overflow: ellipsis;
+  text-transform: uppercase;
 }

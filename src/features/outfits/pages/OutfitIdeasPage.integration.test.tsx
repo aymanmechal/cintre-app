@@ -28,7 +28,7 @@ function ideaCards(): HTMLElement[] {
 describe('Idées de tenues autour d’une pièce', () => {
   it('propose une tenue avec chaque bas disponible', () => {
     renderApp('/tenues/idees/1', { wardrobe: WARDROBE });
-    expect(screen.getByText('Autour de « Chemise lin »')).toBeInTheDocument();
+    expect(screen.getByText('Autour de « CHEMISE LIN »')).toBeInTheDocument();
     expect(ideaCards()).toHaveLength(2);
   });
 
@@ -66,7 +66,7 @@ describe('Pièces sans tenue', () => {
     await openMyOutfitsTab(user);
     await user.click(screen.getByText('Pièces sans tenue (1)'));
     await user.click(screen.getByRole('link', { name: /Chino beige/ }));
-    expect(screen.getByText('Autour de « Chino beige »')).toBeInTheDocument();
+    expect(screen.getByText('Autour de « CHINO BEIGE »')).toBeInTheDocument();
   });
 });
 

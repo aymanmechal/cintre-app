@@ -31,3 +31,7 @@
 .progress {
   font-weight: 800;
 }
+
+.pieces li {
+  text-transform: uppercase;
+}

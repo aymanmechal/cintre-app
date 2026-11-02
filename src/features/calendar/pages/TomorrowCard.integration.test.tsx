@@ -24,6 +24,6 @@ describe('Préparer demain', () => {
       wornLog: [{ id: 'w', date: tomorrow, outfitId: 'o' }],
     });
     expect(await screen.findByRole('checkbox', { name: 'Pull gris' })).toBeInTheDocument();
-    expect(screen.getByText(/Jean : À laver/)).toBeInTheDocument();
+    expect(screen.getByText(/JEAN : À laver/)).toBeInTheDocument();
   });
 });

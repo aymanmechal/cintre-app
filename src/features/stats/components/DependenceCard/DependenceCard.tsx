@@ -1,5 +1,6 @@
 import { DEPENDENCE_EMOJIS, DEPENDENCE_MESSAGES } from '../../constants/dependence';
 import { useDependence } from '../../hooks/useDependence';
+import { formatPieceName } from '../../../../shared/utils/format';
 import styles from './DependenceCard.module.css';
 
 export function DependenceCard() {
@@ -17,7 +18,7 @@ export function DependenceCard() {
       </p>
       <p className={styles.detail}>
         Tes 3 pièces préférées font {dependence.topShare} % de tes ports :{' '}
-        {dependence.topPieces.map((stat) => stat.item.piece.title).join(', ')}.
+        {dependence.topPieces.map((stat) => formatPieceName(stat.item.piece.title)).join(', ')}.
       </p>
     </section>
   );

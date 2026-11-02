@@ -22,7 +22,7 @@ describe('Mes associations', () => {
   it('montre avec quoi va une pièce choisie', async () => {
     const { user } = renderApp('/associations', { wardrobe: WARDROBE });
     await user.click(screen.getByRole('button', { name: /Tee blanc/ }));
-    expect(screen.getByText(/Tee blanc va avec 2 pièces/)).toBeInTheDocument();
+    expect(screen.getByText(/TEE BLANC va avec 2 pièces/)).toBeInTheDocument();
     expect(screen.getByRole('link', { name: 'Voir les idées de tenues' })).toHaveAttribute(
       'href',
       '/tenues/idees/1',
@@ -31,8 +31,8 @@ describe('Mes associations', () => {
 
   it('change de pièce avec la liste', async () => {
     const { user } = renderApp('/associations', { wardrobe: WARDROBE });
-    await user.selectOptions(screen.getByLabelText('Pièce'), 'Chemise');
-    expect(screen.getByText(/Chemise va avec 2 pièces/)).toBeInTheDocument();
+    await user.selectOptions(screen.getByLabelText('Pièce'), 'CHEMISE');
+    expect(screen.getByText(/CHEMISE va avec 2 pièces/)).toBeInTheDocument();
   });
 
   it('signale les pièces isolées', () => {

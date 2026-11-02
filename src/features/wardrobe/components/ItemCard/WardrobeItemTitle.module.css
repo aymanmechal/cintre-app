@@ -1,6 +1,7 @@
 .title {
   font-size: 1.125rem;
   line-height: 1.15;
+  text-transform: uppercase;
 }
 
 .title a {

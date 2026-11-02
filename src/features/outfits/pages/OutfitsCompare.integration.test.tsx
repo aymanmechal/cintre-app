@@ -74,7 +74,7 @@ describe('Tenues : je garde ces pièces', () => {
     );
     await user.click(screen.getByRole('link', { name: /Je garde 2 pièces/ }));
 
-    expect(screen.getByText(/Autour de « Chemise lin » \+ « Jean brut »/)).toBeInTheDocument();
+    expect(screen.getByText(/Autour de « CHEMISE LIN » \+ « JEAN BRUT »/)).toBeInTheDocument();
     expect(screen.getAllByRole('article', { name: /^Idée/ })).toHaveLength(1);
   });
 

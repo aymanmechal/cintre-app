@@ -25,6 +25,6 @@ describe('Avant d’acheter', () => {
     });
     expect(await screen.findByRole('heading', { name: /Avant d’acheter/ })).toBeInTheDocument();
     expect(screen.getByText(/elle donnerait 1 tenue/)).toBeInTheDocument();
-    expect(screen.getByText(/quelque chose de proche : Tee noir/)).toBeInTheDocument();
+    expect(screen.getByText(/quelque chose de proche : TEE NOIR/)).toBeInTheDocument();
   });
 });

@@ -2,6 +2,7 @@ import { AVAILABILITY_LABELS } from '../../../wardrobe/constants/wardrobe';
 import { Button, ButtonVariant } from '../../../../shared/ui/Button/Button';
 import type { CalendarState } from '../../hooks/useCalendar';
 import { useTomorrowPlan } from '../../hooks/useTomorrowPlan';
+import { formatPieceName } from '../../../../shared/utils/format';
 import styles from './TomorrowCard.module.css';
 
 interface TomorrowCardProps {
@@ -42,7 +43,7 @@ export function TomorrowCard({ calendar }: TomorrowCardProps) {
           </ul>
           {plan.unavailableItems.map((item) => (
             <p key={item.piece.id} className={styles.warning}>
-              ⚠️ {item.piece.title} : {AVAILABILITY_LABELS[item.availability]}
+              ⚠️ {formatPieceName(item.piece.title)} : {AVAILABILITY_LABELS[item.availability]}
             </p>
           ))}
         </>

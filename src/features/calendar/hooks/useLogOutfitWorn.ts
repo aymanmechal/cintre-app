@@ -6,6 +6,7 @@ import { isFutureDate } from '../../wardrobe/utils/wornDates';
 import { formatWeekday, findRepeatedPieces } from '../utils/repeatedPieces';
 import { createWornEntryId } from '../utils/wornLog';
 import { useToday } from '../../../shared/hooks/useToday';
+import { formatPieceName } from '../../../shared/utils/format';
 
 export interface LogOutfitWornState {
   outfitId: string;
@@ -31,7 +32,7 @@ export function useLogOutfitWorn(date: string): LogOutfitWornState {
     ? findRepeatedPieces(entries, outfits, date, selectedOutfit).flatMap(
         ({ pieceId, date: wornOn }) => {
           const item = items.find((candidate) => candidate.piece.id === pieceId);
-          return item ? [`${item.piece.title} (${formatWeekday(wornOn)})`] : [];
+          return item ? [`${formatPieceName(item.piece.title)} (${formatWeekday(wornOn)})`] : [];
         },
       )
     : [];

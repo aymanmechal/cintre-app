@@ -1,7 +1,7 @@
 import type { Wrapped } from '../types/wrapped';
 import { PIECE_COLOR_LABELS } from '../../../shared/pieces/constants/colors';
 import { ROUTES, buildEditPieceUrl } from '../../../shared/routes';
-import { formatPrice } from '../../../shared/utils/format';
+import { formatPieceName, formatPrice } from '../../../shared/utils/format';
 
 export interface WrappedHighlight {
   icon: string;
@@ -25,7 +25,7 @@ export function buildWrappedHighlights(wrapped: Wrapped): WrappedHighlight[] {
       label: topPair
         ? `ta paire la plus portée, ${formatTimes(topPair.wearCount)}`
         : 'ta paire la plus portée',
-      value: topPair?.item.piece.title ?? NOTHING,
+      value: topPair ? formatPieceName(topPair.item.piece.title) : NOTHING,
       to: topPair ? buildEditPieceUrl(topPair.item.piece.id) : undefined,
     },
     {
@@ -33,7 +33,7 @@ export function buildWrappedHighlights(wrapped: Wrapped): WrappedHighlight[] {
       label: topClothing
         ? `ton vêtement le plus porté, ${formatTimes(topClothing.wearCount)}`
         : 'ton vêtement le plus porté',
-      value: topClothing?.item.piece.title ?? NOTHING,
+      value: topClothing ? formatPieceName(topClothing.item.piece.title) : NOTHING,
       to: topClothing ? buildEditPieceUrl(topClothing.item.piece.id) : undefined,
     },
     {

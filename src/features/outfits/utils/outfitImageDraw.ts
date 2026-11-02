@@ -10,6 +10,7 @@ import {
 } from '../constants/outfitImage';
 import type { Outfit } from '../types/outfit';
 import { buildOutfitImageLayout, fitCover } from './outfitImageLayout';
+import { formatPieceName } from '../../../shared/utils/format';
 import type { WardrobeItem } from '../../wardrobe/types/wardrobe';
 import { loadPhoto } from '../../../shared/photos/utils/photoStore';
 import type { Piece } from '../../../shared/pieces/types/piece';
@@ -57,7 +58,12 @@ function drawTile(
   context.restore();
   context.fillStyle = OUTFIT_IMAGE_INK;
   context.font = `600 ${CAPTION_FONT_SIZE}px ${OUTFIT_IMAGE_FONT}`;
-  context.fillText(item.piece.title, x, y + size + OUTFIT_IMAGE_CAPTION_HEIGHT * 0.65, size);
+  context.fillText(
+    formatPieceName(item.piece.title),
+    x,
+    y + size + OUTFIT_IMAGE_CAPTION_HEIGHT * 0.65,
+    size,
+  );
 }
 
 export async function drawOutfitImage(

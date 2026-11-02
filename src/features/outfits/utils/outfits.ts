@@ -11,6 +11,7 @@ import type { Outfit, OutfitSelection } from '../types/outfit';
 import type { WardrobeItem } from '../../wardrobe/types/wardrobe';
 import { isWearable } from './combinations';
 import { findWardrobeItem } from '../../wardrobe/utils/wardrobe';
+import { formatPieceName } from '../../../shared/utils/format';
 
 export function createEmptySelection(): OutfitSelection {
   return {
@@ -199,5 +200,5 @@ export function buildDefaultOutfitName(outfitCount: number): string {
 }
 
 export function formatAnchorTitles(anchors: readonly WardrobeItem[]): string {
-  return anchors.map((anchor) => `« ${anchor.piece.title} »`).join(' + ');
+  return anchors.map((anchor) => `« ${formatPieceName(anchor.piece.title)} »`).join(' + ');
 }

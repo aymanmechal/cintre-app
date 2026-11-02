@@ -5,6 +5,7 @@ import type { WardrobeItem } from '../../../wardrobe/types/wardrobe';
 import { toPieceFormValues } from '../../utils/pieceFormValues';
 import { Disclosure } from '../../../../shared/ui/Disclosure/Disclosure';
 import { PageHeader } from '../../../../shared/ui/PageHeader/PageHeader';
+import { formatPieceName } from '../../../../shared/utils/format';
 import { BeforeBuyingSection } from '../BeforeBuying/BeforeBuyingSection';
 import { ArchivePieceSection } from '../ArchivePiece/ArchivePieceSection';
 import { DeletePieceSection } from '../DeletePiece/DeletePieceSection';
@@ -22,7 +23,7 @@ export function EditPieceContent({ item }: EditPieceContentProps) {
 
   return (
     <>
-      <PageHeader title="Modifier la pièce" subtitle={item.piece.title} />
+      <PageHeader title="Modifier la pièce" subtitle={formatPieceName(item.piece.title)} />
       <PieceFormWorkspace
         initialValues={toPieceFormValues(item)}
         labels={EDIT_PIECE_FORM_LABELS}
