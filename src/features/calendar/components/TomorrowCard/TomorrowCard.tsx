@@ -1,4 +1,4 @@
-import { AVAILABILITY_LABELS } from '../../../wardrobe/constants/wardrobe';
+import { AVAILABILITY_LABELS, SHOW_AVAILABILITY } from '../../../wardrobe/constants/wardrobe';
 import { Button, ButtonVariant } from '../../../../shared/ui/Button/Button';
 import type { CalendarState } from '../../hooks/useCalendar';
 import { useTomorrowPlan } from '../../hooks/useTomorrowPlan';
@@ -41,11 +41,12 @@ export function TomorrowCard({ calendar }: TomorrowCardProps) {
               </li>
             ))}
           </ul>
-          {plan.unavailableItems.map((item) => (
-            <p key={item.piece.id} className={styles.warning}>
-              ⚠️ {formatPieceName(item.piece.title)} : {AVAILABILITY_LABELS[item.availability]}
-            </p>
-          ))}
+          {SHOW_AVAILABILITY &&
+            plan.unavailableItems.map((item) => (
+              <p key={item.piece.id} className={styles.warning}>
+                ⚠️ {formatPieceName(item.piece.title)} : {AVAILABILITY_LABELS[item.availability]}
+              </p>
+            ))}
         </>
       )}
     </section>

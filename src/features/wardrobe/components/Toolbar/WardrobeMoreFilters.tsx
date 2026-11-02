@@ -5,6 +5,7 @@ import { CheckboxField } from '../../../../shared/ui/Form/CheckboxField';
 import { SelectField } from '../../../../shared/ui/Form/SelectField';
 import type { SelectOption } from '../../../../shared/ui/Form/selectOption';
 import type { WardrobeViewState } from '../../hooks/useWardrobeView';
+import { SHOW_AVAILABILITY } from '../../constants/wardrobe';
 import { countActiveFilters, hasActiveFilters } from '../../utils/wardrobeView';
 import { WardrobeColorFilter } from '../ColorFilter/WardrobeColorFilter';
 import { WardrobeGroupingSelect } from './WardrobeGroupingSelect';
@@ -59,12 +60,14 @@ export function WardrobeMoreFilters({ viewState }: WardrobeMoreFiltersProps) {
           isChecked={view.onlyFavorites}
           onChange={viewState.toggleOnlyFavorites}
         />
-        <CheckboxField
-          id="wardrobe-only-available"
-          label="Disponibles seulement"
-          isChecked={view.onlyAvailable}
-          onChange={viewState.toggleOnlyAvailable}
-        />
+        {SHOW_AVAILABILITY && (
+          <CheckboxField
+            id="wardrobe-only-available"
+            label="Disponibles seulement"
+            isChecked={view.onlyAvailable}
+            onChange={viewState.toggleOnlyAvailable}
+          />
+        )}
         <WardrobeSortSelect value={view.sortOrder} onChange={viewState.changeSortOrder} />
         <WardrobeGroupingSelect
           status={view.status}

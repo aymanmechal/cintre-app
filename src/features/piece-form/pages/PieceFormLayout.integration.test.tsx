@@ -1,4 +1,5 @@
 import { fireEvent, screen, waitFor, within } from '@testing-library/react';
+import { SHOW_AVAILABILITY } from '../../wardrobe/constants/wardrobe';
 import { describe, expect, it, vi } from 'vitest';
 import { makeWardrobeItem } from '../../../test/factories';
 import { readStoredArchive, readStoredWardrobe, renderApp } from '../../../test/renderApp';
@@ -114,24 +115,27 @@ describe('Fiche pièce : ordre et contenu du formulaire (ajout)', () => {
     expect(screen.queryByRole('combobox', { name: 'Statut' })).not.toBeInTheDocument();
   });
 
-  it('range les autres champs dans « Plus de détails (facultatif) »', () => {
-    renderApp('/ajouter');
-    const hiddenFields = [
-      screen.getByLabelText('Disponibilité'),
-      screen.getByTestId('piece-extra-photo'),
-      screen.getByLabelText('Saison'),
-      screen.getByLabelText('Taille'),
-      screen.getByLabelText('Matière'),
-      screen.getByLabelText('Date d’achat'),
-      screen.getByLabelText('Tags'),
-      screen.getByLabelText('Lien de l’article'),
-    ];
-    for (const field of hiddenFields) {
-      const details = detailsOf(field);
-      expect(details).not.toBeNull();
-      expect(summaryOf(details as HTMLDetailsElement)).toBe(MORE_DETAILS);
-    }
-  });
+  it.skipIf(!SHOW_AVAILABILITY)(
+    'range les autres champs dans « Plus de détails (facultatif) »',
+    () => {
+      renderApp('/ajouter');
+      const hiddenFields = [
+        screen.getByLabelText('Disponibilité'),
+        screen.getByTestId('piece-extra-photo'),
+        screen.getByLabelText('Saison'),
+        screen.getByLabelText('Taille'),
+        screen.getByLabelText('Matière'),
+        screen.getByLabelText('Date d’achat'),
+        screen.getByLabelText('Tags'),
+        screen.getByLabelText('Lien de l’article'),
+      ];
+      for (const field of hiddenFields) {
+        const details = detailsOf(field);
+        expect(details).not.toBeNull();
+        expect(summaryOf(details as HTMLDetailsElement)).toBe(MORE_DETAILS);
+      }
+    },
+  );
 
   it('replie « Plus de détails » au départ', () => {
     renderApp('/ajouter');
@@ -173,17 +177,20 @@ describe('Fiche pièce : statut en deux gros boutons', () => {
     );
   });
 
-  it('montre « Disponibilité » seulement pour « Je l’ai », dans « Plus de détails »', async () => {
-    const { user } = renderApp('/ajouter');
-    const availability = screen.getByLabelText('Disponibilité');
-    expect(summaryOf(detailsOf(availability) as HTMLDetailsElement)).toBe(MORE_DETAILS);
+  it.skipIf(!SHOW_AVAILABILITY)(
+    'montre « Disponibilité » seulement pour « Je l’ai », dans « Plus de détails »',
+    async () => {
+      const { user } = renderApp('/ajouter');
+      const availability = screen.getByLabelText('Disponibilité');
+      expect(summaryOf(detailsOf(availability) as HTMLDetailsElement)).toBe(MORE_DETAILS);
 
-    await user.click(within(statusGroup()).getByRole('button', { name: WANTED_BUTTON }));
-    expect(screen.queryByLabelText('Disponibilité')).not.toBeInTheDocument();
+      await user.click(within(statusGroup()).getByRole('button', { name: WANTED_BUTTON }));
+      expect(screen.queryByLabelText('Disponibilité')).not.toBeInTheDocument();
 
-    await user.click(within(statusGroup()).getByRole('button', { name: OWNED_BUTTON }));
-    expect(screen.getByLabelText('Disponibilité')).toBeInTheDocument();
-  });
+      await user.click(within(statusGroup()).getByRole('button', { name: OWNED_BUTTON }));
+      expect(screen.getByLabelText('Disponibilité')).toBeInTheDocument();
+    },
+  );
 
   it('enregistre une envie avec le statut « wanted »', async () => {
     const { user } = renderApp('/ajouter');
@@ -195,17 +202,20 @@ describe('Fiche pièce : statut en deux gros boutons', () => {
     expect(readStoredWardrobe()[0].status).toBe(OwnershipStatus.Wanted);
   });
 
-  it('enregistre la pièce possédée avec sa disponibilité choisie', async () => {
-    const { user } = renderApp('/ajouter');
-    await user.type(screen.getByLabelText(/^Nom/), 'Jean');
-    await user.click(screen.getByText(MORE_DETAILS));
-    await user.selectOptions(screen.getByLabelText('Disponibilité'), 'sale');
-    await user.click(screen.getByRole('button', ADD_BUTTON));
+  it.skipIf(!SHOW_AVAILABILITY)(
+    'enregistre la pièce possédée avec sa disponibilité choisie',
+    async () => {
+      const { user } = renderApp('/ajouter');
+      await user.type(screen.getByLabelText(/^Nom/), 'Jean');
+      await user.click(screen.getByText(MORE_DETAILS));
+      await user.selectOptions(screen.getByLabelText('Disponibilité'), 'sale');
+      await user.click(screen.getByRole('button', ADD_BUTTON));
 
-    await within(sidebar()).findByText('Pièce ajoutée');
-    const [item] = readStoredWardrobe();
-    expect(item).toMatchObject({ status: OwnershipStatus.Owned, availability: 'sale' });
-  });
+      await within(sidebar()).findByText('Pièce ajoutée');
+      const [item] = readStoredWardrobe();
+      expect(item).toMatchObject({ status: OwnershipStatus.Owned, availability: 'sale' });
+    },
+  );
 });
 
 describe('Fiche pièce : couleur principale', () => {

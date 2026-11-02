@@ -1,5 +1,5 @@
 import { AVAILABILITY_OPTIONS } from '../../../wardrobe/constants/selectOptions';
-import { OwnershipStatus } from '../../../wardrobe/constants/wardrobe';
+import { OwnershipStatus, SHOW_AVAILABILITY } from '../../../wardrobe/constants/wardrobe';
 import { toAvailability } from '../../../wardrobe/utils/wardrobe';
 import { SEASON_OPTIONS, NO_SEASON } from '../../../../shared/pieces/constants/seasonOptions';
 import { toSeason } from '../../../../shared/pieces/utils/seasons';
@@ -22,7 +22,7 @@ export function PieceDetailsFields({ values, errors, onChange }: PieceDetailsFie
   return (
     <Disclosure summary="Plus de détails (facultatif)" className={styles.details}>
       <div className={styles.fields}>
-        {values.status === OwnershipStatus.Owned && (
+        {SHOW_AVAILABILITY && values.status === OwnershipStatus.Owned && (
           <SelectField
             id="piece-availability"
             label="Disponibilité"

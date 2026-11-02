@@ -1,4 +1,5 @@
 import { screen, within } from '@testing-library/react';
+import { SHOW_AVAILABILITY } from '../constants/wardrobe';
 import { describe, expect, it } from 'vitest';
 import { PieceType } from '../../../shared/pieces/constants/categories';
 import { PieceColor } from '../../../shared/pieces/constants/colors';
@@ -157,17 +158,20 @@ describe('Barre d’outils : panneau « Filtres »', () => {
     expect(filtersPanel().open).toBe(true);
   });
 
-  it('contient couleurs, saison, tag, favoris, disponibles, tri, regroupement', () => {
-    renderApp('/garde-robe', { wardrobe: WARDROBE });
-    const panel = within(filtersPanel());
-    expect(panel.getByRole('group', { name: 'Couleur' })).toBeInTheDocument();
-    expect(panel.getByLabelText('Saison')).toBeInTheDocument();
-    expect(panel.getByLabelText('Tag')).toBeInTheDocument();
-    expect(panel.getByLabelText('Mes favoris seulement')).toBeInTheDocument();
-    expect(panel.getByLabelText('Disponibles seulement')).toBeInTheDocument();
-    expect(panel.getByLabelText('Trier par')).toBeInTheDocument();
-    expect(panel.getByLabelText('Regrouper')).toBeInTheDocument();
-  });
+  it.skipIf(!SHOW_AVAILABILITY)(
+    'contient couleurs, saison, tag, favoris, disponibles, tri, regroupement',
+    () => {
+      renderApp('/garde-robe', { wardrobe: WARDROBE });
+      const panel = within(filtersPanel());
+      expect(panel.getByRole('group', { name: 'Couleur' })).toBeInTheDocument();
+      expect(panel.getByLabelText('Saison')).toBeInTheDocument();
+      expect(panel.getByLabelText('Tag')).toBeInTheDocument();
+      expect(panel.getByLabelText('Mes favoris seulement')).toBeInTheDocument();
+      expect(panel.getByLabelText('Disponibles seulement')).toBeInTheDocument();
+      expect(panel.getByLabelText('Trier par')).toBeInTheDocument();
+      expect(panel.getByLabelText('Regrouper')).toBeInTheDocument();
+    },
+  );
 
   it('propose une pastille de couleur pour chaque couleur', () => {
     renderApp('/garde-robe', { wardrobe: WARDROBE });
@@ -245,27 +249,30 @@ describe('Barre d’outils : panneau « Filtres »', () => {
     expect(summaryText()).toBe('Filtres');
   });
 
-  it('affiche le nombre de filtres actifs sur « Filtres » (couleurs = 1)', async () => {
-    const { user } = renderApp('/garde-robe', { wardrobe: WARDROBE });
-    await user.click(filtersSummary());
-    await user.click(within(colorGroup()).getByText('Bleu'));
-    expect(summaryText()).toBe('Filtres 1');
+  it.skipIf(!SHOW_AVAILABILITY)(
+    'affiche le nombre de filtres actifs sur « Filtres » (couleurs = 1)',
+    async () => {
+      const { user } = renderApp('/garde-robe', { wardrobe: WARDROBE });
+      await user.click(filtersSummary());
+      await user.click(within(colorGroup()).getByText('Bleu'));
+      expect(summaryText()).toBe('Filtres 1');
 
-    await user.click(within(colorGroup()).getByText('Rouge'));
-    expect(summaryText()).toBe('Filtres 1');
+      await user.click(within(colorGroup()).getByText('Rouge'));
+      expect(summaryText()).toBe('Filtres 1');
 
-    await user.selectOptions(screen.getByLabelText('Saison'), 'Hiver');
-    expect(summaryText()).toBe('Filtres 2');
+      await user.selectOptions(screen.getByLabelText('Saison'), 'Hiver');
+      expect(summaryText()).toBe('Filtres 2');
 
-    await user.click(screen.getByLabelText('Mes favoris seulement'));
-    expect(summaryText()).toBe('Filtres 3');
+      await user.click(screen.getByLabelText('Mes favoris seulement'));
+      expect(summaryText()).toBe('Filtres 3');
 
-    await user.click(screen.getByLabelText('Disponibles seulement'));
-    expect(summaryText()).toBe('Filtres 4');
+      await user.click(screen.getByLabelText('Disponibles seulement'));
+      expect(summaryText()).toBe('Filtres 4');
 
-    await user.selectOptions(screen.getByLabelText('Tag'), 'noel');
-    expect(summaryText()).toBe('Filtres 5');
-  });
+      await user.selectOptions(screen.getByLabelText('Tag'), 'noel');
+      expect(summaryText()).toBe('Filtres 5');
+    },
+  );
 
   it('ne compte pas la recherche dans la pastille numérique', async () => {
     const { user } = renderApp('/garde-robe', { wardrobe: WARDROBE });

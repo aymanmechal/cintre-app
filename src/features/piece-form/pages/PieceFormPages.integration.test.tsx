@@ -1,4 +1,5 @@
 import { screen, waitFor, within } from '@testing-library/react';
+import { SHOW_AVAILABILITY } from '../../wardrobe/constants/wardrobe';
 import { describe, expect, it } from 'vitest';
 import { makeWardrobeItem } from '../../../test/factories';
 import { readStoredWardrobe, renderApp } from '../../../test/renderApp';
@@ -48,7 +49,7 @@ describe('Ajouter une pièce : formulaire', () => {
     expect(screen.getByText(/doit commencer par http/)).toBeInTheDocument();
   });
 
-  it("masque la disponibilité quand c'est une envie", async () => {
+  it.skipIf(!SHOW_AVAILABILITY)("masque la disponibilité quand c'est une envie", async () => {
     const { user } = renderApp('/ajouter');
     expect(screen.getByLabelText('Disponibilité')).toBeInTheDocument();
     await user.click(

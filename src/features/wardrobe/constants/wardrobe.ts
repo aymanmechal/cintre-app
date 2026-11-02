@@ -38,6 +38,9 @@ export const AVAILABILITY_LABELS: Record<Availability, string> = {
 
 export const AVAILABILITIES = Object.values(Availability);
 
+// Disponibilité masquée pour l'instant : les données restent, seul l'affichage est coupé.
+export const SHOW_AVAILABILITY = false;
+
 export enum ArchiveReason {
   Sold = 'vendue',
   Given = 'donnee',

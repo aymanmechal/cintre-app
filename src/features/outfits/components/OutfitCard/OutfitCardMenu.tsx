@@ -37,15 +37,22 @@ export function OutfitCardMenu({
       <div className={styles.content}>
         <OutfitOccasionField outfit={outfit} />
         <OutfitNotes outfit={outfit} />
-        <div className={styles.actions}>
-          <OutfitImageButton outfit={outfit} outfitItems={outfitItems} />
+        <div className={styles.exports}>
+          <OutfitImageButton
+            outfit={outfit}
+            outfitItems={outfitItems}
+            className={styles.exportButton}
+          />
           {canShare && (
             <ShareOutfitsButton
               entries={[{ outfit, items: outfitItems }]}
               label="Partager"
               accessibleLabel={`Partager la tenue ${outfit.name}`}
+              className={styles.exportButton}
             />
           )}
+        </div>
+        <div className={styles.actions}>
           <CompareOutfitToggle
             outfit={outfit}
             isCompared={isCompared}

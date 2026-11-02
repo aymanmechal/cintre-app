@@ -6,15 +6,17 @@ import { Button, ButtonVariant } from '../../../../shared/ui/Button/Button';
 interface OutfitImageButtonProps {
   outfit: Outfit;
   outfitItems: readonly WardrobeItem[];
+  className?: string;
 }
 
-export function OutfitImageButton({ outfit, outfitItems }: OutfitImageButtonProps) {
+export function OutfitImageButton({ outfit, outfitItems, className }: OutfitImageButtonProps) {
   const { isExporting, errorMessage, exportImage } = useOutfitImageExport(outfit, outfitItems);
 
   return (
     <>
       <Button
-        variant={ButtonVariant.Ghost}
+        variant={ButtonVariant.Action}
+        className={className}
         disabled={isExporting}
         aria-label={`Enregistrer la tenue ${outfit.name} en image`}
         onClick={exportImage}

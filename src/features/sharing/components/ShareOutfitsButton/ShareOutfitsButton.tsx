@@ -8,15 +8,22 @@ interface ShareOutfitsButtonProps {
   entries: readonly ShareEntry[];
   label: string;
   accessibleLabel: string;
+  className?: string;
 }
 
-export function ShareOutfitsButton({ entries, label, accessibleLabel }: ShareOutfitsButtonProps) {
+export function ShareOutfitsButton({
+  entries,
+  label,
+  accessibleLabel,
+  className,
+}: ShareOutfitsButtonProps) {
   const { status, share } = useShareOutfits(entries);
 
   return (
     <span className={styles.share}>
       <Button
         variant={ButtonVariant.Ghost}
+        className={className}
         disabled={status === ShareStatus.Sharing}
         aria-label={accessibleLabel}
         onClick={share}
