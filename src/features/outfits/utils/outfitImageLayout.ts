@@ -47,8 +47,9 @@ export function buildOutfitImageLayout(pieceCount: number): OutfitImageLayout {
   };
 }
 
-export function fitCover(imageWidth: number, imageHeight: number, size: number): ImageRect {
-  const scale = Math.max(size / imageWidth, size / imageHeight);
+// Affiche la photo en entier (sans rogner) et la centre dans la case.
+export function fitContain(imageWidth: number, imageHeight: number, size: number): ImageRect {
+  const scale = Math.min(size / imageWidth, size / imageHeight);
   const width = imageWidth * scale;
   const height = imageHeight * scale;
   return { x: (size - width) / 2, y: (size - height) / 2, width, height };

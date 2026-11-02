@@ -4,7 +4,7 @@ import {
   OUTFIT_IMAGE_PADDING,
   OUTFIT_IMAGE_TILE_SIZE,
 } from '../constants/outfitImage';
-import { buildOutfitImageFileName, buildOutfitImageLayout, fitCover } from './outfitImageLayout';
+import { buildOutfitImageFileName, buildOutfitImageLayout, fitContain } from './outfitImageLayout';
 
 describe('buildOutfitImageLayout', () => {
   it('place les pièces sur deux colonnes', () => {
@@ -28,10 +28,10 @@ describe('buildOutfitImageLayout', () => {
   });
 });
 
-describe('fitCover', () => {
-  it('remplit la case en coupant ce qui dépasse', () => {
-    expect(fitCover(200, 100, 100)).toEqual({ x: -50, y: 0, width: 200, height: 100 });
-    expect(fitCover(100, 200, 100)).toEqual({ x: 0, y: -50, width: 100, height: 200 });
+describe('fitContain', () => {
+  it('garde la photo entière, sans rogner, centrée dans la case', () => {
+    expect(fitContain(200, 100, 100)).toEqual({ x: 0, y: 25, width: 100, height: 50 });
+    expect(fitContain(100, 200, 100)).toEqual({ x: 25, y: 0, width: 50, height: 100 });
   });
 });
 
